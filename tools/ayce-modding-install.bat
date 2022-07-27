@@ -4,9 +4,16 @@
 @echo off
 setlocal
 
+set DIST_DIR="%~dp0"
+
 echo.
 echo Overcooked! AYCE Mod Installer
 echo.
+
+if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll echo Error: Must run from 'dist' dir, not 'tools' dir
+if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll echo.
+if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll exit 1
+
 echo Please select your game executable
 echo Typically ".../steam/steamapps/common/Overcooked! All You Can Eat/Overcooked All You Can Eat.exe"
 echo.
@@ -15,7 +22,6 @@ for /f "delims=" %%I in ('powershell -noprofile "iex (${%~f0} | out-string)"') d
 goto :EOF
 
 :install
-set DIST_DIR="%~dp0\..\dist"
 set GAME_DIR="%~dp1"
 set BEPINEX_DIR="%~dp1\BepInEx\"
 set PLUGINS_DIR="%~dp1\BepInEx\plugins"
