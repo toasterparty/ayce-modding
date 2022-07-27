@@ -12,46 +12,52 @@ namespace AyceModding
     [BepInProcess("Overcooked All You Can Eat.exe")]
     public class AyceModding : BasePlugin
     {
-        private ConfigEntry<bool> configExampleBool;
         internal static new ManualLogSource Log;
         private readonly Harmony harmony = new Harmony(PluginInfo.PLUGIN_GUID);
+        private static ConfigFile configFile;
+        private static ConfigEntry<bool> configUnlockAllChefs;
 
         public override void Load()
         {
             /* Setup Logging */
             AyceModding.Log = base.Log;
 
-            /* Handle Configuration */
-            var configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "AyceModding.cfg"), true);
+            /* Initialize Configuration */
+            configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "AyceModding.cfg"), true);
+            bindConfig();
 
-            configExampleBool = configFile.Bind(
+            /* Inject Mods */
+            Harmony.CreateAndPatchAll(typeof(AyceModding));
+
+            AyceModding.Log.LogInfo($"Loaded Successfully");
+        }
+
+        private void bindConfig()
+        {
+            configUnlockAllChefs = configFile.Bind(
                 "Cosmetic", // Config Category
                 "UnlockAllChefs", // Config key name
                 true, // Default Config value
-                "Set to True to show all Chefs on the Chef selection screen" // Friendly description
+                "Set to true to show all Chefs on the Chef selection screen" // Friendly description
             );
-
-            /* Patch Modifications */
-            Harmony.CreateAndPatchAll(typeof(AyceModding));
-
-            /* Log Success */
-            AyceModding.Log.LogInfo($"Loaded Successfully");
-            AyceModding.Log.LogInfo($"Example Config = {configExampleBool.Value}");
         }
 
         [HarmonyPatch(typeof(ChefSelectMenu), "SetUpGridItem")]
         [HarmonyPrefix]
         public static bool Prefix(ref Il2CppStructArray<bool> variantsUnlocked, ref int firstUnlockedVariant, ref bool unlockable)
         {
-            /* Unlock all variants */
-            for (int i = 0; i < variantsUnlocked.Count; i++)
+            if (configUnlockAllChefs.Value)
             {
-                variantsUnlocked[i] = true;
-            }
+                /* Unlock all variants */
+                for (int i = 0; i < variantsUnlocked.Count; i++)
+                {
+                    variantsUnlocked[i] = true;
+                }
 
-            /* Unlock all chefs */
-            firstUnlockedVariant = 0;
-            unlockable = true;
+                /* Unlock all chefs */
+                firstUnlockedVariant = 0;
+                unlockable = true;
+            }
 
             return true; // Execute original function
         }
