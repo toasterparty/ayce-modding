@@ -1,15 +1,15 @@
 ﻿using BepInEx;
+using BepInEx.IL2CPP;
 
 namespace AyceModding
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-    // [BepInPlugin("com.github.toasterparty.ayce-modding", "AYCE Modding", "0.0.1")]
-    public class Plugin : BaseUnityPlugin
+    public class AyceModding : BasePlugin
     {
-        private void Awake()
+        public override void Load()
         {
             // Plugin startup logic
-            Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+            Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
     }
 }
