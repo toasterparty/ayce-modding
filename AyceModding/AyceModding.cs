@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using BepInEx;
-using BepInEx.IL2CPP;
 using BepInEx.Logging;
-using UnhollowerBaseLib;
 using BepInEx.Configuration;
+using BepInEx.IL2CPP;
+using UnhollowerBaseLib;
 using HarmonyLib;
 
 namespace AyceModding
@@ -27,7 +27,10 @@ namespace AyceModding
             bindConfig();
 
             /* Inject Mods */
-            Harmony.CreateAndPatchAll(typeof(AyceModding));
+            if (configUnlockAllChefs.Value)
+            {
+                Harmony.CreateAndPatchAll(typeof(PatchUnlockAllChefs));
+            }
 
             AyceModding.Log.LogInfo($"Loaded Successfully");
         }
@@ -42,11 +45,11 @@ namespace AyceModding
             );
         }
 
-        [HarmonyPatch(typeof(ChefSelectMenu), "SetUpGridItem")]
-        [HarmonyPrefix]
-        public static bool Prefix(ref Il2CppStructArray<bool> variantsUnlocked, ref int firstUnlockedVariant, ref bool unlockable)
+        class PatchUnlockAllChefs
         {
-            if (configUnlockAllChefs.Value)
+            [HarmonyPatch(typeof(ChefSelectMenu), "SetUpGridItem")]
+            [HarmonyPrefix]
+            public static bool Prefix(ref Il2CppStructArray<bool> variantsUnlocked, ref int firstUnlockedVariant, ref bool unlockable)
             {
                 /* Unlock all variants */
                 for (int i = 0; i < variantsUnlocked.Count; i++)
@@ -57,9 +60,9 @@ namespace AyceModding
                 /* Unlock all chefs */
                 firstUnlockedVariant = 0;
                 unlockable = true;
-            }
 
-            return true; // Execute original function
+                return true; // Execute original function
+            }
         }
     }
 }
