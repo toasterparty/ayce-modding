@@ -5,6 +5,7 @@
 setlocal
 
 set DIST_DIR="%~dp0"
+set NO_PAUSE=%1
 
 echo.
 echo Overcooked! AYCE Mod Installer
@@ -14,10 +15,15 @@ if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll echo Error: Must
 if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll echo.
 if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll exit 1
 
+if "%~2" == "" goto blank
+call :install %2
+goto :EOF
+
 echo Please select your game executable
 echo Typically ".../steam/steamapps/common/Overcooked! All You Can Eat/Overcooked All You Can Eat.exe"
 echo.
 
+:blank
 for /f "delims=" %%I in ('powershell -noprofile "iex (${%~f0} | out-string)"') do call :install "%%~I"
 goto :EOF
 
@@ -41,6 +47,7 @@ echo.
 echo Successfully installed 'AYCE Modding'
 echo.
 
+if %NO_PAUSE% == nopause goto :EOF
 pause
 goto :EOF
 

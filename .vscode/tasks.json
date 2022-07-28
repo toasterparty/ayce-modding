@@ -10,11 +10,18 @@
             "group": "build"
         },
         {
-            "label": "Build and Install",
+            "label": "Install",
             "type": "shell",
-            "command": "${workspaceFolder}/dist/ayce-modding-install.bat",
+            "command": "${workspaceFolder}/dist/ayce-modding-install.bat nopause \\\"C:\\Other\\Games\\Steam\\steamapps\\common\\Overcooked! All You Can Eat\\Overcooked All You Can Eat.exe\\\"",
             "dependsOn": ["Build"],
             "group": "build"
-        }
+        },
+        {
+            "label": "Playtest",
+            "type": "shell",
+            "command": "start \\\"C:\\Other\\Games\\Steam\\steamapps\\common\\Overcooked! All You Can Eat\\Overcooked All You Can Eat.exe\\\"",
+            "dependsOn": ["Build", "Install"],
+            "group": "build"
+        },        
     ]
 }
