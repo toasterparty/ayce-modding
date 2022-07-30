@@ -12,6 +12,7 @@ namespace AyceModding
     {
         internal static new ManualLogSource Log;
         public static ConfigFile configFile;
+        private static ConfigEntry<bool> configDisableAllMods;
 
         public override void Load()
         {
@@ -21,8 +22,20 @@ namespace AyceModding
 
             /* Initialize Configuration */
             configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "AyceModding.cfg"), true);
+            configDisableAllMods = AyceModding.configFile.Bind(
+                "General",
+                "DisableAllMods",
+                false,
+                "Set to true to completely return the game back to it's original state"
+            );
 
-            /* Initialize Components */
+            if (configDisableAllMods.Value)
+            {
+                AyceModding.Log.LogInfo($"All mods DISABLED!");
+                return;
+            }
+
+            /* Inject Mods */
             PatchUnlockAllChefs.load();
         }
     }

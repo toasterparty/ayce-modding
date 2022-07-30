@@ -14,11 +14,11 @@ namespace AyceModding
             configUnlockAllChefs = AyceModding.configFile.Bind(
                 "Cosmetic", // Config Category
                 "UnlockAllChefs", // Config key name
-                true, // Default Config value
+                false, // Default Config value
                 "Set to true to show all Chefs on the Chef selection screen" // Friendly description
             );
 
-            /* Inject Mods */
+            /* Inject Mod */
             if (configUnlockAllChefs.Value)
             {
                 AyceModding.Log.LogInfo($"Force unlocked all chefs");
