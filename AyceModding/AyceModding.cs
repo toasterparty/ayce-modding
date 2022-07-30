@@ -15,10 +15,9 @@ namespace AyceModding
 
         public override void Load()
         {
-            AyceModding.Log.LogInfo($"AyceModding is alive!");
-
             /* Setup Logging */
             AyceModding.Log = base.Log;
+            AyceModding.Log.LogInfo($"AyceModding is alive!");
 
             /* Initialize Configuration */
             configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "AyceModding.cfg"), true);
