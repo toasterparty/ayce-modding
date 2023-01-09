@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace AyceModding
 {
-    public class PatchUnlockAllChefs
+    public static class PatchUnlockAllChefs
     {
         private static ConfigEntry<bool> configUnlockAllChefs;
 

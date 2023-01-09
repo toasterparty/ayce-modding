@@ -37,6 +37,7 @@ namespace AyceModding
 
             /* Inject Mods */
             PatchUnlockAllChefs.load();
+            LevelProgression.load();
         }
     }
 }
