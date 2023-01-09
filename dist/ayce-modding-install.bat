@@ -5,25 +5,38 @@
 setlocal
 
 set DIST_DIR="%~dp0"
-set NO_PAUSE=%1
+set NO_PAUSE=%~1
+set BEPINEX_VER=BepInEx_UnityIL2CPP_x64_6.0.0-pre.1
 
 echo.
 echo Overcooked! AYCE Mod Installer
 echo.
 
-if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll echo Error: Must run from 'dist' dir, not 'tools' dir
-if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll echo.
-if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll exit 1
+if not exist %DIST_DIR%\com.github.toasterparty.AyceModding.dll goto fail
+if not exist %DIST_DIR%\%BEPINEX_VER% goto fail
+
+goto check_params
+
+:fail
+
+echo Corrupt installation package. If you are a developer, please refer to the README.
+echo.
+
+pause
+exit 1
+
+:check_params
 
 if "%~2" == "" goto blank
 call :install %2
 goto :EOF
 
-echo Please select your game executable
-echo Typically ".../steam/steamapps/common/Overcooked! All You Can Eat/Overcooked All You Can Eat.exe"
+:blank
+
+echo Please select your game executable...
+echo Typically "C:\Program Files\Steam\steamapps\common\Overcooked! All You Can Eat\Overcooked All You Can Eat.exe"
 echo.
 
-:blank
 for /f "delims=" %%I in ('powershell -noprofile "iex (${%~f0} | out-string)"') do call :install "%%~I"
 goto :EOF
 
@@ -32,32 +45,37 @@ set GAME_DIR="%~dp1"
 set BEPINEX_DIR="%~dp1\BepInEx\"
 set PLUGINS_DIR="%~dp1\BepInEx\plugins"
 
-if not exist %BEPINEX_DIR% echo Error: BepInEx does not appear to be installed correctly, please install BepInEx and try agin
-if not exist %BEPINEX_DIR% exit 1
+echo Installing 'AYCE Modding' into %PLUGINS_DIR%...
+echo.
 
+if not exist %BEPINEX_DIR% mkdir %BEPINEX_DIR%
 if not exist %PLUGINS_DIR% mkdir %PLUGINS_DIR%
 
-echo Installing AYCE modding into %PLUGINS_DIR%...
-echo.
+xcopy %DIST_DIR%\%BEPINEX_VER%  %GAME_DIR% /y /q /s /e
 
 xcopy %DIST_DIR%\*.dll %PLUGINS_DIR% /y /q
 xcopy %DIST_DIR%\ayce-modding-uninstall.bat %GAME_DIR% /y /q
 
+del /f /q %PLUGINS_DIR%\com.github.toasterparty.AyceModding.dll
+
 echo.
 echo Successfully installed 'AYCE Modding'
+echo (You may now close this window)
 echo.
 
-if %NO_PAUSE% == nopause goto :EOF
+if "%NO_PAUSE%" == "nopause" goto :EOF
+
 pause
+
 goto :EOF
 
 : end Batch portion / begin PowerShell hybrid chimera #>
 
 Add-Type -AssemblyName System.Windows.Forms
 $f = new-object Windows.Forms.OpenFileDialog
-$f.InitialDirectory = pwd
+$f.InitialDirectory = "C:\Program Files\Steam\steamapps\common\Overcooked All You Can Eat\"
 $f.Filter = "Overcooked All You Can Eat (*.exe)|*.exe|All Files (*.*)|*.*"
-$f.ShowHelp = $true
-$f.Multiselect = $true
+$f.ShowHelp = $false
+$f.Multiselect = $false
 [void]$f.ShowDialog()
 if ($f.Multiselect) { $f.FileNames } else { $f.FileName }
