@@ -56,8 +56,6 @@ xcopy %DIST_DIR%\%BEPINEX_VER%  %GAME_DIR% /y /q /s /e
 xcopy %DIST_DIR%\*.dll %PLUGINS_DIR% /y /q
 xcopy %DIST_DIR%\ayce-modding-uninstall.bat %GAME_DIR% /y /q
 
-del /f /q %PLUGINS_DIR%\com.github.toasterparty.AyceModding.dll
-
 echo.
 echo Successfully installed 'AYCE Modding'
 echo (You may now close this window)
