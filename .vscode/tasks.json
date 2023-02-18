@@ -7,7 +7,10 @@
             "label": "Build",
             "type": "shell",
             "command": "${workspaceFolder}/tools/build.bat",
-            "group": "build"
+            "group": "build",
+            "presentation": {
+                "close": true
+            }
         },
         {
             "label": "Install",
@@ -20,8 +23,11 @@
             "label": "Playtest",
             "type": "shell",
             "command": "start \\\"C:\\Other\\Games\\Steam\\steamapps\\common\\Overcooked! All You Can Eat\\Overcooked All You Can Eat.exe\\\"",
-            "dependsOn": ["Build", "Install"],
-            "group": "build"
+            "dependsOn": ["Install"],
+            "group": "build",
+            "presentation": {
+                "close": true
+            }
         },        
     ]
 }

@@ -11,8 +11,6 @@ cd %SRC_DIR% || exit 1
 dotnet build || exit 1
 
 xcopy %BUILD_DIR%\com.github.toasterparty.AyceModding.dll %DIST_DIR% /y /q || exit 1
-xcopy %TOOLS_DIR%\ayce-modding-install.bat %DIST_DIR% /y /q || exit 1
-xcopy %TOOLS_DIR%\ayce-modding-uninstall.bat %DIST_DIR% /y /q || exit 1
 
 echo.
 echo Successfully built 'AYCE Modding'
