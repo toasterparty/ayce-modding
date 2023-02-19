@@ -1,12 +1,12 @@
-﻿using System.IO;
+using System.IO;
 using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Configuration;
-using BepInEx.IL2CPP;
+using BepInEx.Unity.IL2CPP;
 
 namespace AyceModding
 {
-    [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
     [BepInProcess("Overcooked All You Can Eat.exe")]
     public class AyceModding : BasePlugin
     {

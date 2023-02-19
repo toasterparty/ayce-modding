@@ -1,6 +1,6 @@
 # Build
 
-1. Install the contents of [BepInEx_UnityIL2CPP_x64_9c2b17f_6.0.0-be.572](https://builds.bepinex.dev/projects/bepinex_be/572/BepInEx_UnityMono_x64_9c2b17f_6.0.0-be.572.zip) into the game folder
+1. Install the contents of [BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.665+6aabdb5](https://builds.bepinex.dev/projects/bepinex_be/665/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.665%2B6aabdb5.zip) into the game folder
 
 2. Install latest [.NET sdk](https://dotnet.microsoft.com/en-us/)
 
@@ -10,6 +10,7 @@
 UnityEngine.dll
 UnityEngine.CoreModule.dll
 Assembly-CSharp.dll
+Il2Cppmscorlib.dll
 ```
 
 4. Build

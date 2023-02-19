@@ -2,8 +2,7 @@
 
 This file contains useful notes for reverse engineering OC AYCE.
 
-TFM - netstandard2.1
-Unity Version - v2019.4.5
+Unity Version - v2019.4.5.8478991
 
 The game was packaged with IL2CPP. This took the nice neat JIT IL DLLs and packs them down into standard binaries. By simply running the game with BepInEx, BepInEx will "unhollow" the standard unity DLLs you know and love into `BepInEx/unhollowed`. This contains all the symbols for classes and functions, but implementations are not accessible this way.
 

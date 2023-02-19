@@ -6,7 +6,7 @@ setlocal
 
 set DIST_DIR="%~dp0"
 set NO_PAUSE=%~1
-set BEPINEX_VER=BepInEx_UnityIL2CPP_x64_6.0.0-pre.1
+set BEPINEX_VER=BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.665+6aabdb5
 
 echo.
 echo Overcooked! AYCE Mod Installer
