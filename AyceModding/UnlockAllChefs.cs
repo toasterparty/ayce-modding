@@ -1,6 +1,6 @@
 using BepInEx.Configuration;
-using UnhollowerBaseLib;
 using HarmonyLib;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace AyceModding
 {

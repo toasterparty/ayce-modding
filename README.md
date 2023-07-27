@@ -11,6 +11,7 @@ UnityEngine.dll
 UnityEngine.CoreModule.dll
 Assembly-CSharp.dll
 Il2Cppmscorlib.dll
+UnhollowerBaseLib.dll
 ```
 
 4. Build

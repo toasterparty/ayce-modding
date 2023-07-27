@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Configuration;
@@ -38,6 +38,7 @@ namespace AyceModding
             /* Inject Mods */
             PatchUnlockAllChefs.load();
             LevelProgression.load();
+            ExportAvatarDirectory.load();
         }
     }
 }
